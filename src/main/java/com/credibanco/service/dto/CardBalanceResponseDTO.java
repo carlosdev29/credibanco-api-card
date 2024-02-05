@@ -2,13 +2,13 @@ package com.credibanco.service.dto;
 
 public class CardBalanceResponseDTO {
 	
-	private Long balance;
+	private Integer balance;
 	private StatusResponseDTO statusResponseDTO;
 	
-	public Long getBalance() {
+	public Integer getBalance() {
 		return balance;
 	}
-	public void setBalance(Long balance) {
+	public void setBalance(Integer balance) {
 		this.balance = balance;
 	}
 	public StatusResponseDTO getStatusResponseDTO() {

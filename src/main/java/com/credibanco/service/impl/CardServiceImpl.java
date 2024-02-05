@@ -11,6 +11,7 @@ import com.credibanco.service.ICardService;
 import com.credibanco.service.dto.CardStatusResponseDTO;
 import com.credibanco.service.dto.CardBalanceResponseDTO;
 import com.credibanco.service.dto.CardNumberResponseDTO;
+import com.credibanco.service.dto.CardStatusRequestDTO;
 import com.credibanco.service.dto.StatusResponseDTO;
 import com.credibanco.util.CardUtil;
 
@@ -70,20 +71,21 @@ public class CardServiceImpl implements ICardService {
 	 * @return El estado de la activacion
 	*/
 	@Override
-	public CardStatusResponseDTO setStatus(String cardNumberParam) {
-		cardNumberParam = "1234560123456789";
-		String cardNumberDB = "";
+	public CardStatusResponseDTO setStatus(CardStatusRequestDTO cardStatusRequestDTO) {
+		
 		StatusResponseDTO statusResponseDTO = new StatusResponseDTO();
 		CardStatusResponseDTO cardDTOStageResponse =  new CardStatusResponseDTO();
 		try {
-			cardNumberDB = TEST_ID.concat(TEST_COMPLEMENT_NUMBER);
+			CardEntity cardEntity = this.repository.findById(
+					cardStatusRequestDTO.getIdCustomer()).orElse(null);
 			//Validamos si fue emitida la tarjeta
-			if (!cardNumberDB.equals(cardNumberParam)) {
+			if (!cardEntity.getCardNumber().equals(cardStatusRequestDTO.getDocumentNumber())) {
 				statusResponseDTO.setCode("203");
 				statusResponseDTO.setMessage("Data not Authorized - card not issued");
 				cardDTOStageResponse.setStatusResponseDTO(statusResponseDTO);
 			}
-			cardDTOStageResponse.setStatusCard(true);
+			Boolean statusCardDB = true;
+			cardDTOStageResponse.setStatusCard(statusCardDB);
 			statusResponseDTO.setCode("201");
 		} catch (Exception e) {
 			// TODO: handle exceptio
@@ -104,7 +106,7 @@ public class CardServiceImpl implements ICardService {
 	public CardBalanceResponseDTO getCardBalannce(String id) {
 		CardBalanceResponseDTO cardBalanceResponseDTO = new CardBalanceResponseDTO();
 		StatusResponseDTO statusResponseDTO = new StatusResponseDTO();
-		Long balanceDB = 1000L; 
+		Integer balanceDB = 1000; 
 		statusResponseDTO.setCode("200");
 		statusResponseDTO.setMessage("Consulta Exitoso");
 		cardBalanceResponseDTO.setBalance(balanceDB);

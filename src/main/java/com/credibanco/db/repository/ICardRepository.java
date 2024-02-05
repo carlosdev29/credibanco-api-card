@@ -8,5 +8,6 @@ import com.credibanco.db.repository.entity.CardEntity;
 
 @Repository
 public interface ICardRepository extends JpaRepository<CardEntity, Integer>{
+	
 
 }

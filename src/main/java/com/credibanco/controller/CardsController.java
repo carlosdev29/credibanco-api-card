@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -18,6 +19,7 @@ import com.credibanco.service.dto.CardBalanceResponseDTO;
 import com.credibanco.service.dto.CardDTOOut;
 import com.credibanco.service.dto.CardStatusResponseDTO;
 import com.credibanco.service.dto.CardNumberResponseDTO;
+import com.credibanco.service.dto.CardStatusRequestDTO;
 
 @RestController
 @RequestMapping(value = "/cards")
@@ -35,8 +37,9 @@ public class CardsController {
 	}
 	
 	@PostMapping(value = "/enroll")
-	public CardStatusResponseDTO setCard(String documentNumber) {
-		CardStatusResponseDTO cardDTOStageResponse = this.cardService.setStage(documentNumber);
+	public CardStatusResponseDTO setCard(@RequestBody CardStatusRequestDTO cardStatusRequestDTO) {
+		System.out.println("cardStatusRequestDTO  "+cardStatusRequestDTO);
+		CardStatusResponseDTO cardDTOStageResponse = this.cardService.setStatus(cardStatusRequestDTO);
 		return cardDTOStageResponse;
 	}
 	
