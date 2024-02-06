@@ -57,42 +57,5 @@ public class CardsController {
 		return response;
 	}
 	
-	
-	
-	@GetMapping(value = "/getCards")
-	public List<CardDTOOut> getCards() {
-		
-		List<CardDTOOut>listCards = new ArrayList<>();
-		
-		CardDTOOut cardDTOOut = new CardDTOOut();
-		cardDTOOut.setCardNumber("54123554");
-		cardDTOOut.setExpirationDate("28/11/2025");
-		cardDTOOut.setDocumentNumberClient("1015402");
-		cardDTOOut.setDocumentTypeClient("CC");
-		cardDTOOut.setBalance("10000");
-		
-		CardDTOOut cardDTOOut2 = new CardDTOOut();
-		cardDTOOut2.setCardNumber("541111111");
-		cardDTOOut2.setExpirationDate("28/11/2029");
-		cardDTOOut2.setDocumentNumberClient("1020521");
-		cardDTOOut2.setDocumentTypeClient("CC");
-		cardDTOOut2.setBalance("250000");
-		
-		CardDTOOut cardDTOOut3 = new CardDTOOut();
-		cardDTOOut3.setCardNumber("542222222");
-		cardDTOOut3.setExpirationDate("11/11/2026");
-		cardDTOOut3.setDocumentNumberClient("1015402");
-		cardDTOOut3.setDocumentTypeClient("CC");
-		cardDTOOut3.setBalance("900000");
-		
-		listCards.add(cardDTOOut);
-		listCards.add(cardDTOOut2);
-		listCards.add(cardDTOOut3);
-		
-		return listCards;
-	}
-	
-	
-	
 
 }
