@@ -118,13 +118,13 @@ public class CardServiceImpl implements ICardService {
 	 * @return 
 	*/
 	@Override
-	public CardBalanceResponseDTO getCardBalannce(String id) {
+	public CardBalanceResponseDTO getCardBalannce(Integer id) {
 		CardBalanceResponseDTO cardBalanceResponseDTO = new CardBalanceResponseDTO();
 		StatusResponseDTO statusResponseDTO = new StatusResponseDTO();
-		Integer balanceDB = 1000; 
+		CardEntity cardBalance = this.repository.findById(id).orElse(null);
 		statusResponseDTO.setCode("200");
 		statusResponseDTO.setMessage("Consulta Exitoso");
-		cardBalanceResponseDTO.setBalance(balanceDB);
+		cardBalanceResponseDTO.setBalance(cardBalance.getBalance());
 		cardBalanceResponseDTO.setStatusResponseDTO(statusResponseDTO);
 		return cardBalanceResponseDTO;
 	}
@@ -134,12 +134,23 @@ public class CardServiceImpl implements ICardService {
 	 * Este método se encarga de recargar la tarjeta debito o credito devolviendo el nuevo saldo
 	 * @author Carlos Sanz
 	 * @param String cardNumber para identificar el producto a recargar
-	 * @param Long ammount valor de recargar la cuenta
+	 * @param Integer ammount valor de recargar la cuenta
 	 * @return el nuevo valor de saldo de la tarjeta
 	*/
 	@Override
-	public CardBalanceResponseDTO addCardMoney(String cardNumber, Long ammount) {
+	public CardBalanceResponseDTO addCardMoney(String cardNumber, Integer ammount) {
 		CardBalanceResponseDTO cardBalanceResponseDTO = new CardBalanceResponseDTO();
+		StatusResponseDTO statusBought = new StatusResponseDTO();
+		String cardId = cardNumber.substring(0,6);
+		CardEntity cardBalanceAfterAdd = this.repository.findById(Integer.valueOf(cardId))
+				.orElse(null);
+		Integer balanceAfterAdd = cardBalanceAfterAdd.getBalance()+ammount;
+		cardBalanceAfterAdd.setBalance(balanceAfterAdd);
+		cardBalanceAfterAdd = this.repository.save(cardBalanceAfterAdd);
+		cardBalanceResponseDTO.setBalance(cardBalanceAfterAdd.getBalance());
+		statusBought.setCode("200");
+		statusBought.setMessage("OK");
+		cardBalanceResponseDTO.setStatusResponseDTO(statusBought);
 		return cardBalanceResponseDTO;
 	}
 	

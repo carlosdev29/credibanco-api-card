@@ -37,14 +37,14 @@ public class CardsController {
 	}
 	
 	@PostMapping(value = "/enroll")
-	public CardStatusResponseDTO setCard(@RequestBody CardStatusRequestDTO cardStatusRequestDTO) {
+	public CardStatusResponseDTO setCardStatus(@RequestBody CardStatusRequestDTO cardStatusRequestDTO) {
 		System.out.println("cardStatusRequestDTO  "+cardStatusRequestDTO.getIdCardStatus());
 		CardStatusResponseDTO cardDTOStageResponse = this.cardService.setStatusCard(cardStatusRequestDTO);
 		return cardDTOStageResponse;
 	}
 	
 	@PostMapping(value = "/balance")
-	public CardBalanceResponseDTO addMoneyCard(String cardNumber, Long ammount) {
+	public CardBalanceResponseDTO addMoneyCard(String cardNumber, Integer ammount) {
 		CardBalanceResponseDTO cardBalanceResponseDTO = 
 				this.cardService.addCardMoney(cardNumber, ammount);
 		return cardBalanceResponseDTO;

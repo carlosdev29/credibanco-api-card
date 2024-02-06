@@ -31,7 +31,7 @@ public class CardEntity {
 	@Column(name = "expiration_date")
 	private Date expirationCard;
 	
-	private String balance;
+	private Integer balance;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_card_status")
@@ -69,10 +69,10 @@ public class CardEntity {
 	public void setExpirationCard(Date expirationCard) {
 		this.expirationCard = expirationCard;
 	}
-	public String getBalance() {
+	public Integer getBalance() {
 		return balance;
 	}
-	public void setBalance(String balance) {
+	public void setBalance(Integer balance) {
 		this.balance = balance;
 	}
 	
