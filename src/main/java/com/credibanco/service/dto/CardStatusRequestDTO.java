@@ -7,18 +7,19 @@ public class CardStatusRequestDTO {
 	private Integer idCardStatus;
 	private String cardNumber;
 	
-	public Integer getIdCustomer() {
+	public Integer getIdCardStatus() {
 		return idCardStatus;
 	}
-	public void setIdCustomer(Integer idCustomer) {
-		this.idCardStatus = idCustomer;
+	public void setIdCardStatus(Integer idCardStatus) {
+		this.idCardStatus = idCardStatus;
 	}
-	public String getDocumentNumber() {
+	public String getCardNumber() {
 		return cardNumber;
 	}
-	public void setDocumentNumber(String documentNumber) {
-		this.cardNumber = documentNumber;
+	public void setCardNumber(String cardNumber) {
+		this.cardNumber = cardNumber;
 	}
+	
 	
 	
 

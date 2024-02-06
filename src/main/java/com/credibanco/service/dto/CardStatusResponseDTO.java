@@ -2,14 +2,14 @@ package com.credibanco.service.dto;
 
 public class CardStatusResponseDTO {
 	
-	private Boolean statusCard;
+	private String statusCard;
 	private StatusResponseDTO statusResponseDTO;
 	
 	
-	public Boolean getStatusCard() {
+	public String getStatusCard() {
 		return statusCard;
 	}
-	public void setStatusCard(Boolean statusCard) {
+	public void setStatusCard(String statusCard) {
 		this.statusCard = statusCard;
 	}
 	public StatusResponseDTO getStatusResponseDTO() {

@@ -38,8 +38,8 @@ public class CardsController {
 	
 	@PostMapping(value = "/enroll")
 	public CardStatusResponseDTO setCard(@RequestBody CardStatusRequestDTO cardStatusRequestDTO) {
-		System.out.println("cardStatusRequestDTO  "+cardStatusRequestDTO);
-		CardStatusResponseDTO cardDTOStageResponse = this.cardService.setStatus(cardStatusRequestDTO);
+		System.out.println("cardStatusRequestDTO  "+cardStatusRequestDTO.getIdCardStatus());
+		CardStatusResponseDTO cardDTOStageResponse = this.cardService.setStatusCard(cardStatusRequestDTO);
 		return cardDTOStageResponse;
 	}
 	

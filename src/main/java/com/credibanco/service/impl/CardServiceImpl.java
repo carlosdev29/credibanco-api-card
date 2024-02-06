@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.credibanco.db.repository.ICardRepository;
 import com.credibanco.db.repository.entity.CardEntity;
+import com.credibanco.db.repository.entity.StatusCardEntity;
 import com.credibanco.service.ICardService;
 import com.credibanco.service.dto.CardStatusResponseDTO;
 import com.credibanco.service.dto.CardBalanceResponseDTO;
@@ -71,22 +72,36 @@ public class CardServiceImpl implements ICardService {
 	 * @return El estado de la activacion
 	*/
 	@Override
-	public CardStatusResponseDTO setStatus(CardStatusRequestDTO cardStatusRequestDTO) {
+	public CardStatusResponseDTO setStatusCard(CardStatusRequestDTO cardStatusRequestDTO) {
 		
 		StatusResponseDTO statusResponseDTO = new StatusResponseDTO();
 		CardStatusResponseDTO cardDTOStageResponse =  new CardStatusResponseDTO();
 		try {
 			CardEntity cardEntity = this.repository.findById(
-					cardStatusRequestDTO.getIdCustomer()).orElse(null);
+					cardStatusRequestDTO.getIdCardStatus()).orElse(null);
+			
+			System.out.println("1->"+cardEntity.getCardNumber());
+			System.out.println("2->"+cardStatusRequestDTO.getCardNumber());
 			//Validamos si fue emitida la tarjeta
-			if (!cardEntity.getCardNumber().equals(cardStatusRequestDTO.getDocumentNumber())) {
+			if (!cardEntity.getCardNumber().equals(cardStatusRequestDTO.getCardNumber())) {
 				statusResponseDTO.setCode("203");
 				statusResponseDTO.setMessage("Data not Authorized - card not issued");
 				cardDTOStageResponse.setStatusResponseDTO(statusResponseDTO);
 			}
-			Boolean statusCardDB = true;
-			cardDTOStageResponse.setStatusCard(statusCardDB);
+			StatusCardEntity status =new StatusCardEntity();
+			status.setId(100002);
+			cardEntity.setStatusCard(status);
+			CardEntity respDM = this.repository.save(cardEntity);
 			statusResponseDTO.setCode("201");
+			statusResponseDTO.setMessage("OK");
+			System.out.println(respDM.getStatusCard());
+			/*cardEntity.setStatusCard(respDM.getStatusCard());
+			System.out.println(cardEntity);*/
+			respDM.getStatusCard().setStatusName("Activada");
+			System.out.println(respDM.getStatusCard().getStatusName());
+			cardDTOStageResponse.setStatusCard(
+					respDM.getStatusCard().getStatusName());
+			cardDTOStageResponse.setStatusResponseDTO(statusResponseDTO);
 		} catch (Exception e) {
 			// TODO: handle exceptio
 		}

@@ -9,7 +9,7 @@ public interface ICardService {
 	
 	public CardNumberResponseDTO getCardNumber(String id);
 	
-	public CardStatusResponseDTO setStatus(CardStatusRequestDTO cardStatusRequestDTO);
+	public CardStatusResponseDTO setStatusCard(CardStatusRequestDTO cardStatusRequestDTO);
 	
 	public CardBalanceResponseDTO addCardMoney(String cardNumber, Long ammount);
 	
