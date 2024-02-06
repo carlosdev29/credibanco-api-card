@@ -52,8 +52,8 @@ public class CardsController {
 	
 	
 	@GetMapping(value = "/balance/{cardId}")
-	public CardBalanceResponseDTO getCardBalance() {
-		CardBalanceResponseDTO response = this.getCardBalance();
+	public CardBalanceResponseDTO getCardBalance(@PathVariable Integer cardId) {
+		CardBalanceResponseDTO response = this.cardService.getCardBalannce(cardId);
 		return response;
 	}
 	

@@ -20,8 +20,6 @@ import com.credibanco.util.CardUtil;
 @Service
 public class CardServiceImpl implements ICardService {
 	
-	private static final String TEST_ID = "123456";
-	private static final String TEST_COMPLEMENT_NUMBER ="0123456789";
 	
 	@Autowired
 	private ICardRepository repository;
