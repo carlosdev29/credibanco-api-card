@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.credibanco.service.ICardService;
+import com.credibanco.service.dto.CardBalanceRequestDTO;
 import com.credibanco.service.dto.CardBalanceResponseDTO;
 import com.credibanco.service.dto.CardStatusResponseDTO;
 import com.credibanco.service.dto.CardNumberResponseDTO;
@@ -41,9 +42,10 @@ public class CardsController {
 	}
 	
 	@PostMapping(value = "/balance")
-	public CardBalanceResponseDTO addMoneyCard(String cardNumber, Integer ammount) {
+	public CardBalanceResponseDTO addMoneyCard(@RequestBody CardBalanceRequestDTO cardBalanceRequestDTO) {
 		CardBalanceResponseDTO cardBalanceResponseDTO = 
-				this.cardService.addCardMoney(cardNumber, ammount);
+				this.cardService.addCardMoney(cardBalanceRequestDTO.getCardNumber(), 
+						cardBalanceRequestDTO.getAmmount());
 		return cardBalanceResponseDTO;
 	}
 	
