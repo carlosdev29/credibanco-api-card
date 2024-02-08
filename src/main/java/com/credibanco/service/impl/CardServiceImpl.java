@@ -1,5 +1,6 @@
 package com.credibanco.service.impl;
 
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,11 @@ import com.credibanco.util.CardUtil;
 public class CardServiceImpl implements ICardService {
 	
 	
+	private static final Integer COD_ACTIVADA_DB = 100002;
+	private static final String ACTIVADA = "Activada";
+	
+	
+	
 	@Autowired
 	private ICardRepository repository;
 	
@@ -38,6 +44,8 @@ public class CardServiceImpl implements ICardService {
 		CardUtil util = new CardUtil();
 		String idDB = "";
 		String complementNumberCard = "";
+		
+		
 		try {
 			Optional<String>idValue = Optional.ofNullable(id);
 			if (!idValue.isPresent()) {
@@ -50,11 +58,13 @@ public class CardServiceImpl implements ICardService {
 					this.repository.findById(Integer.valueOf(id)).orElse(null);
 			System.out.println("cardEntity  "+cardEntity);
 			complementNumberCard = util.generateComplementNumber();
-			cardNumberResponse.setCardNumber(
-					String.valueOf(cardEntity.getId()).concat(complementNumberCard));
+			cardEntity.setCardNumber(String.valueOf(cardEntity.getId()).concat(complementNumberCard));
+			CardEntity cardEntityUpdated = this.repository.save(cardEntity);
+			System.out.println("cardEntityUpdated "+cardEntityUpdated);
 			statusResponseDTO.setCode("200");
 			statusResponseDTO.setMessage("ok");
 			cardNumberResponse.setStatusResponseDTO(statusResponseDTO);
+			cardNumberResponse.setCardNumber(cardEntityUpdated.getCardNumber());
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -87,7 +97,7 @@ public class CardServiceImpl implements ICardService {
 				cardDTOStageResponse.setStatusResponseDTO(statusResponseDTO);
 			}
 			StatusCardEntity status =new StatusCardEntity();
-			status.setId(100002);
+			status.setId(COD_ACTIVADA_DB);
 			cardEntity.setStatusCard(status);
 			CardEntity respDM = this.repository.save(cardEntity);
 			statusResponseDTO.setCode("201");
@@ -95,7 +105,12 @@ public class CardServiceImpl implements ICardService {
 			System.out.println(respDM.getStatusCard());
 			/*cardEntity.setStatusCard(respDM.getStatusCard());
 			System.out.println(cardEntity);*/
-			respDM.getStatusCard().setStatusName("Activada");
+			if (!respDM.getStatusCard().getId().equals(COD_ACTIVADA_DB)) {
+				statusResponseDTO.setCode("203");
+				statusResponseDTO.setMessage("Card not Activated");
+				cardDTOStageResponse.setStatusResponseDTO(statusResponseDTO);
+			}
+			respDM.getStatusCard().setStatusName(ACTIVADA);
 			System.out.println(respDM.getStatusCard().getStatusName());
 			cardDTOStageResponse.setStatusCard(
 					respDM.getStatusCard().getStatusName());

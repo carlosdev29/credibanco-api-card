@@ -1,7 +1,5 @@
 package com.credibanco.controller;
 
-import java.util.ArrayList;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.credibanco.service.ICardService;
 import com.credibanco.service.dto.CardBalanceResponseDTO;
-import com.credibanco.service.dto.CardDTOOut;
 import com.credibanco.service.dto.CardStatusResponseDTO;
 import com.credibanco.service.dto.CardNumberResponseDTO;
 import com.credibanco.service.dto.CardStatusRequestDTO;
