@@ -11,7 +11,7 @@ public interface ICardService {
 	
 	public CardStatusResponseDTO setStatusCard(CardStatusRequestDTO cardStatusRequestDTO);
 	
-	public CardBalanceResponseDTO addCardMoney(String cardNumber, Integer ammount);
+	public CardBalanceResponseDTO updateBalance(String cardNumber, Integer ammount, String type);
 	
 	public CardBalanceResponseDTO getCardBalannce(Integer id);
 	

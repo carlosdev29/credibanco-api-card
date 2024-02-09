@@ -42,10 +42,10 @@ public class CardsController {
 	}
 	
 	@PostMapping(value = "/balance")
-	public CardBalanceResponseDTO addMoneyCard(@RequestBody CardBalanceRequestDTO cardBalanceRequestDTO) {
+	public CardBalanceResponseDTO updateBalance(@RequestBody CardBalanceRequestDTO cardBalanceRequestDTO) {
 		CardBalanceResponseDTO cardBalanceResponseDTO = 
-				this.cardService.addCardMoney(cardBalanceRequestDTO.getCardNumber(), 
-						cardBalanceRequestDTO.getAmmount());
+				this.cardService.updateBalance(cardBalanceRequestDTO.getCardNumber(), 
+						cardBalanceRequestDTO.getAmmount(), cardBalanceRequestDTO.getTypeTrans());
 		return cardBalanceResponseDTO;
 	}
 	

@@ -151,13 +151,19 @@ public class CardServiceImpl implements ICardService {
 	 * @return el nuevo valor de saldo de la tarjeta
 	*/
 	@Override
-	public CardBalanceResponseDTO addCardMoney(String cardNumber, Integer ammount) {
+	public CardBalanceResponseDTO updateBalance(String cardNumber, Integer ammount, String type) {
 		CardBalanceResponseDTO cardBalanceResponseDTO = new CardBalanceResponseDTO();
 		StatusResponseDTO statusBought = new StatusResponseDTO();
+		Integer balanceAfterAdd = 0;
 		String cardId = cardNumber.substring(0,6);
 		CardEntity cardBalanceAfterAdd = this.repository.findById(Integer.valueOf(cardId))
 				.orElse(null);
-		Integer balanceAfterAdd = cardBalanceAfterAdd.getBalance()+ammount;
+		
+		if (type.equals("c")) {
+			balanceAfterAdd = cardBalanceAfterAdd.getBalance()-ammount;
+		}else {
+			balanceAfterAdd = cardBalanceAfterAdd.getBalance()+ammount;
+		}
 		cardBalanceAfterAdd.setBalance(balanceAfterAdd);
 		cardBalanceAfterAdd = this.repository.save(cardBalanceAfterAdd);
 		cardBalanceResponseDTO.setBalance(cardBalanceAfterAdd.getBalance());
